@@ -5,6 +5,7 @@ import styled from 'styled-components';
 function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [clicked, setClicked] = useState(false);
     const navigate = useNavigate();
 
     if (localStorage.getItem('token')) {
@@ -17,6 +18,7 @@ function Login() {
     };
 
     const handleLogin = () => {
+        setClicked(true);
         if (username && password && checkUsername()) {
             navigate('/albums');
         }
@@ -41,7 +43,7 @@ function Login() {
                 Sign In
             </button>
             {
-                (!username || !password) &&
+                (!username || !password) && clicked &&
                 <p className="error">Both username and password are required</p>
             }
         </LoginContainer>
