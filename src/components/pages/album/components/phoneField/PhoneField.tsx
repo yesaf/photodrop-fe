@@ -1,4 +1,4 @@
-import PhoneInput from 'react-phone-input-2';
+import PhoneInput from '../../../../shared/phoneInput/PhoneInput';
 import deleteIcon from '../../../../../assets/images/delete.svg';
 import styled from 'styled-components';
 

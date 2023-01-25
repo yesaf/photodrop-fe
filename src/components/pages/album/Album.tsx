@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import PhoneInput from 'react-phone-input-2';
-// import PhoneField from './components/phoneField/PhoneField';
+import PhoneInput from '../../shared/phoneInput/PhoneInput';
+import PhoneField from './components/phoneField/PhoneField';
 import 'react-phone-input-2/lib/style.css';
 import styled from 'styled-components';
 import closeIcon from '../../../assets/images/close-square.svg';
 
 function Album() {
+    console.log(typeof PhoneInput);
     const [album, setAlbum] = useState({
         id: '1', name: 'Album 1',
         location: 'Location1', date: '2020-01-01',
@@ -75,14 +76,14 @@ function Album() {
                     </button>
                 </AddPhoneInput>
 
-                {/*<div className="phone-numbers">*/}
-                {/*    {*/}
-                {/*        album.phoneNumbers.map((phone) => (*/}
-                {/*            <PhoneField phone={phone}*/}
-                {/*                        onDelete={handleDeletePhoneNumber}/>*/}
-                {/*        ))*/}
-                {/*    }*/}
-                {/*</div>*/}
+                <div className="phone-numbers">
+                    {
+                        album.phoneNumbers.map((phone) => (
+                            <PhoneField phone={phone}
+                                        onDelete={handleDeletePhoneNumber}/>
+                        ))
+                    }
+                </div>
             </PhonesContainer>
         </AlbumContainer>
     );
