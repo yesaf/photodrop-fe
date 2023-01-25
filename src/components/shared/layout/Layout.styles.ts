@@ -14,6 +14,7 @@ export const LayoutContainer = styled.div`
     border-width: 0 0 1px 0;
     border-style: solid;
     border-color: #e0e0e0;
+    padding: 0.25rem 0;
 
     .left {
       position: absolute;
@@ -31,7 +32,7 @@ export const LayoutContainer = styled.div`
   }
 
   .main {
-    flex: 1;
+    height: calc(100% - 3.5rem);
     display: flex;
     flex-direction: row;
     justify-content: center;

@@ -1,4 +1,4 @@
-import { memo, useState } from 'react';
+import React, { memo, useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -24,10 +24,20 @@ function Login() {
         }
     };
 
+    const focusIdOnEnter = (id: string) => {
+        return (e: React.KeyboardEvent<HTMLInputElement>) => {
+            if (e.key === 'Enter') {
+                document.getElementById(id)?.focus();
+            }
+        }
+    };
+
     return (
         <LoginContainer>
             <input type="text" placeholder="Username"
+                   id="username"
                    value={username}
+                   onKeyPress={focusIdOnEnter('password')}
                    onChange={(e) => setUsername(e.target.value)}/>
 
             {
@@ -36,10 +46,12 @@ function Login() {
             }
 
             <input type="password" placeholder="Password"
+                   id="password"
                    value={password}
+                   onKeyPress={focusIdOnEnter('login-button')}
                    onChange={(e) => setPassword(e.target.value)}/>
 
-            <button onClick={handleLogin}>
+            <button onClick={handleLogin} id="login-button">
                 Sign In
             </button>
             {

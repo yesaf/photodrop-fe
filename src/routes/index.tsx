@@ -5,13 +5,17 @@ import PrivateRoute from './PrivateRoute';
 import Login from '../components/pages/login/Login';
 import Albums from '../components/pages/albums/Albums';
 import Album from '../components/pages/album/Album';
+import BackButton from '../components/shared/backButton/BackButton';
+import CreateAlbum from '../components/pages/createAlbum/CreateAlbum';
+import CloseButton from '../components/shared/closeButton/CloseButton';
 
 function AllRoutes() {
 
     const privateRoutes = [
-        { element: <Navigate to="/albums"/>, route: '/', exact: true },
+        { element: <Navigate to="/albums"/>, route: '/', exact: true},
         { element: <Albums/>, route: '/albums', exact: true },
-        { element: <Album/>, route: '/albums/:id' },
+        { element: <Album/>, route: '/albums/:id', leftButton: <BackButton/>  },
+        { element: <CreateAlbum/>, route: '/create', leftButton: <CloseButton/>  },
     ];
 
     return (
@@ -21,7 +25,7 @@ function AllRoutes() {
                 privateRoutes.map((route, index) =>
                     <Route key={index} path={route.route} element={
                         <PrivateRoute>
-                            <Layout>{route.element}</Layout>
+                            <Layout leftButton={route.leftButton}>{route.element}</Layout>
                         </PrivateRoute>
                     }/>,
                 )

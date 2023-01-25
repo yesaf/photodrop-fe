@@ -19,9 +19,9 @@ function Albums() {
 
     return (
         <AlbumList>
-            <button className="add-album">
+            <a href="/create" className="add-album">
                 Add Album
-            </button>
+            </a>
             {data.map((album) => (
                 <AlbumInfo key={album.id} album={album}/>
             ))}
@@ -45,6 +45,8 @@ const AlbumList = styled.ul`
     border-radius: 1rem;
     cursor: pointer;
     font-size: 1.2rem;
+    text-decoration: none;
+    text-align: center;
     background-color: #3276c3;
 
     &:before {

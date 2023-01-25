@@ -8,12 +8,8 @@ interface IAlbumInfoProps {
 }
 
 function AlbumInfo({ album }: IAlbumInfoProps) {
-    const navigate = useNavigate();
-
     return (
-        <AlbumContainer onClick={() => {
-            navigate(`/albums/${album.id}`);
-        }}>
+        <AlbumContainer>
             <a href={`/albums/${album.id}`}>
                 <img src={albumLogo} alt=""/>
                 <div className="info-container">
