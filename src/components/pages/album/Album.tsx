@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import PhoneInput from 'react-phone-input-2';
-import PhoneField from './components/phoneField/PhoneField';
+// import PhoneInput from 'react-phone-input-2';
+// import PhoneField from './components/phoneField/PhoneField';
 import 'react-phone-input-2/lib/style.css';
 import styled from 'styled-components';
 import closeIcon from '../../../assets/images/close-square.svg';
@@ -63,26 +63,26 @@ function Album() {
                 </header>
 
                 <AddPhoneInput className={showPhoneInput ? 'show' : ''}>
-                    <div>
-                        <PhoneInput
-                            country={'ua'}
-                            value={phone}
-                            onChange={(value) => setPhone(value)}
-                        />
-                    </div>
+                    {/*<div>*/}
+                    {/*    <PhoneInput*/}
+                    {/*        country={'ua'}*/}
+                    {/*        value={phone}*/}
+                    {/*        onChange={(value) => setPhone(value)}*/}
+                    {/*    />*/}
+                    {/*</div>*/}
                     <button onClick={() => setShowPhoneInput(false)}>
                         <img src={closeIcon} alt=""/>
                     </button>
                 </AddPhoneInput>
 
-                <div className="phone-numbers">
-                    {
-                        album.phoneNumbers.map((phone) => (
-                            <PhoneField phone={phone}
-                                        onDelete={handleDeletePhoneNumber}/>
-                        ))
-                    }
-                </div>
+                {/*<div className="phone-numbers">*/}
+                {/*    {*/}
+                {/*        album.phoneNumbers.map((phone) => (*/}
+                {/*            <PhoneField phone={phone}*/}
+                {/*                        onDelete={handleDeletePhoneNumber}/>*/}
+                {/*        ))*/}
+                {/*    }*/}
+                {/*</div>*/}
             </PhonesContainer>
         </AlbumContainer>
     );
