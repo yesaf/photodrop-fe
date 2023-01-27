@@ -1,6 +1,9 @@
-import React, { memo, useState } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import React, { memo, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import authService from '../../../api/services/auth';
+import { isLoggedIn } from '../../../utils/checkLoggedIn';
+
 
 function Login() {
     const [username, setUsername] = useState('');
@@ -8,9 +11,15 @@ function Login() {
     const [clicked, setClicked] = useState(false);
     const navigate = useNavigate();
 
-    if (localStorage.getItem('token')) {
-        return <Navigate to="/albums"/>;
-    }
+    useEffect(() => {
+        if (isLoggedIn()) {
+            authService.checkToken().then((valid) => {
+                if (valid) {
+                    navigate('/albums');
+                }
+            });
+        }
+    }, []);
 
     const checkUsername = () => {
         const usernameRegex = /^[a-zA-Z_]+$/;
@@ -20,7 +29,13 @@ function Login() {
     const handleLogin = () => {
         setClicked(true);
         if (username && password && checkUsername()) {
-            navigate('/albums');
+            authService.login(username, password)
+                .then(() => {
+                    navigate('/albums');
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
         }
     };
 

@@ -2,7 +2,7 @@ import Uppy, { UppyFile } from '@uppy/core';
 import { Dashboard } from '@uppy/react';
 import XHRUpload from '@uppy/xhr-upload';
 import { useState } from 'react';
-import { baseUrl, headers } from '../../../../../api/http/default';
+import { baseUrl } from '../../../../../api/http/default';
 import '@uppy/core/dist/style.css'
 import '@uppy/dashboard/dist/style.css'
 
@@ -14,7 +14,9 @@ function UploadPhotos() {
                 endpoint: baseUrl + '/album/upload-photos',
                 formData: true,
                 method: 'post',
-                headers: headers,
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('token'),
+                },
                 fieldName: 'files',
             })
             .on('file-added', (file: UppyFile) => {

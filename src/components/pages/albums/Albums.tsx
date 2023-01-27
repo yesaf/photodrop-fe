@@ -1,31 +1,38 @@
 import styled from 'styled-components';
 import AlbumInfo from './components/albumInfo/AlbumInfo';
+import { useEffect, useState } from 'react';
+import { Album } from '../../../api/types/serverResponses';
+import albumService from '../../../api/services/album';
+import Loader from '../../shared/loader/Loader';
 
 function Albums() {
-    const data = [
-        {
-            id: '1', name: 'Album 1', location: 'Location1', date: '2020-01-01',
-            totalPhotos: 10, phoneNumbers: ['12345678901'],
-        },
-        {
-            id: '2', name: 'Album 2', location: 'Location2', date: '2020-01-02',
-            totalPhotos: 10, phoneNumbers: ['12345678901'],
-        },
-        {
-            id: '3', name: 'Album 3', location: 'Location3', date: '2020-01-03',
-            totalPhotos: 10, phoneNumbers: ['12345678901'],
-        },
-    ];
+    const [albums, setAlbums] = useState<Album[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        albumService.getAlbums().then((res) => {
+            const albumList = res.data;
+            setAlbums(albumList);
+            setLoading(false);
+        });
+    }, [])
 
     return (
-        <AlbumList>
-            <a href="/create" className="add-album">
-                Add Album
-            </a>
-            {data.map((album) => (
-                <AlbumInfo key={album.id} album={album}/>
-            ))}
-        </AlbumList>
+        <>
+            {
+                loading ?
+                    <Loader/> :
+                    <AlbumList>
+                        <a href="/create" className="add-album">
+                            Add Album
+                        </a>
+                        {albums.map((album, index) => (
+                            <AlbumInfo key={index} album={album}/>
+                        ))}
+                    </AlbumList>
+            }
+        </>
+
     );
 }
 

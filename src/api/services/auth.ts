@@ -1,27 +1,34 @@
-import axios, { AxiosInstance } from 'axios';
+import axios from 'axios';
+import defaultClient from '../http/default';
 import { baseUrl } from '../http/default';
 
 class AuthService {
-    client: AxiosInstance = axios.create({
-        baseURL: baseUrl,
-    });
-
-    async login(username: string, password: string) {
+    async login(login: string, password: string) {
         const { data } = await axios.post(baseUrl + '/auth/login', {
-            username,
+            login,
             password,
         });
-        return data;
+
+        if (data.accessToken) {
+            localStorage.setItem('token', data.accessToken);
+            return true;
+        }
+
+        return false;
     }
 
-    async refreshToken() {
+    async refreshToken(): Promise<boolean> {
         const { data } = await axios.post(baseUrl + '/auth/refresh');
-        const token = data.token;
+        if (data.accessToken) {
+            localStorage.setItem('token', data.accessToken);
+            return true;
+        }
+        return false;
+    }
 
-        localStorage.setItem('token', token);
-
-        return data;
+    checkToken() {
+        return defaultClient.get('/auth/me');
     }
 }
 
-export default AuthService;
+export default new AuthService();

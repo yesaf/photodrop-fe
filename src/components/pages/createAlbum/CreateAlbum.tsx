@@ -1,16 +1,25 @@
 import styled from 'styled-components';
 import { useState } from 'react';
 import DatePicker from './components/datePicker/DatePicker';
+import albumService from '../../../api/services/album';
+import { useNavigate } from 'react-router-dom';
 
 function CreateAlbum() {
     const [name, setName] = useState('');
     const [location, setLocation] = useState('');
     const [date, setDate] = useState(new Date());
-
+    const navigate = useNavigate();
 
     const handleDayClick = (day: Date) => {
         setDate(day);
     };
+
+    const handleSave = () => {
+        albumService.createAlbum(name, location, date)
+            .then(() => {
+            navigate('/albums');
+        });
+    }
 
     return (
         <InputsContainer>
@@ -19,7 +28,7 @@ function CreateAlbum() {
             <input type="text" placeholder="Album location" value={location}
                    onChange={(e) => setLocation(e.target.value)}/>
             <DatePicker value={date} onChange={handleDayClick}/>
-            <button className="create-album">Save</button>
+            <button className="create-album" onClick={handleSave}>Save</button>
         </InputsContainer>
     );
 }

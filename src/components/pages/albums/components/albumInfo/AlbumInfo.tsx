@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import albumLogo from '../../../../../assets/images/album-logo.svg';
 import { Album } from '../../../../../api/types/serverResponses';
@@ -10,7 +9,7 @@ interface IAlbumInfoProps {
 function AlbumInfo({ album }: IAlbumInfoProps) {
     return (
         <AlbumContainer>
-            <a href={`/albums/${album.id}`}>
+            <a href={`/albums/${album.albumId}`}>
                 <img src={albumLogo} alt=""/>
                 <div className="info-container">
                     <span>{album.name}</span>
