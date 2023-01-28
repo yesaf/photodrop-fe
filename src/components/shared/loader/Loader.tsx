@@ -11,6 +11,7 @@ const LoaderImage = styled.img`
   width: 15rem;
   height: 15rem;
   animation: spin 1.5s linear infinite;
+  margin-top: 5rem;
   
   @keyframes spin {
     0% {
