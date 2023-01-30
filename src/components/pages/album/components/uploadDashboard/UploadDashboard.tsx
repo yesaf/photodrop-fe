@@ -1,4 +1,4 @@
-import Uppy, { UppyFile } from '@uppy/core';
+import Uppy from '@uppy/core';
 import { Dashboard } from '@uppy/react';
 import XHRUpload from '@uppy/xhr-upload';
 import { useState } from 'react';
