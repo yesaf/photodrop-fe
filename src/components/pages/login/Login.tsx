@@ -47,6 +47,12 @@ function Login() {
         }
     };
 
+    const loginOnEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            handleLogin();
+        }
+    }
+
     return (
         <LoginContainer>
             <input type="text" placeholder="Username"
@@ -63,7 +69,7 @@ function Login() {
             <input type="password" placeholder="Password"
                    id="password"
                    value={password}
-                   onKeyPress={focusIdOnEnter('login-button')}
+                   onKeyPress={loginOnEnter}
                    onChange={(e) => setPassword(e.target.value)}/>
 
             <button onClick={handleLogin} id="login-button">
