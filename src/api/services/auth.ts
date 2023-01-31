@@ -18,7 +18,9 @@ class AuthService {
     }
 
     async refreshToken(): Promise<boolean> {
-        const { data } = await axios.post(baseUrl + '/auth/refresh');
+        const { data } = await axios.post(baseUrl + '/auth/refresh', {}, {
+            withCredentials: true,
+        });
         if (data.accessToken) {
             localStorage.setItem('token', data.accessToken);
             return true;

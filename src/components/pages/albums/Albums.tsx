@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 import AlbumInfo from './components/albumInfo/AlbumInfo';
 import { useEffect, useState } from 'react';
-import { Album } from '../../../api/types/serverResponses';
+import { IAlbum } from '../../../api/types/serverResponses';
 import albumService from '../../../api/services/album';
 import Loader from '../../shared/loader/Loader';
 
 function Albums() {
-    const [albums, setAlbums] = useState<Album[]>([]);
+    const [albums, setAlbums] = useState<IAlbum[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {

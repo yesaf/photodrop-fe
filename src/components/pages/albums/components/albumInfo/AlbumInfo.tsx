@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import albumLogo from '../../../../../assets/images/album-logo.svg';
-import { Album } from '../../../../../api/types/serverResponses';
+import { IAlbum } from '../../../../../api/types/serverResponses';
 
 interface IAlbumInfoProps {
-    album: Album;
+    album: IAlbum;
 }
 
 function AlbumInfo({ album }: IAlbumInfoProps) {

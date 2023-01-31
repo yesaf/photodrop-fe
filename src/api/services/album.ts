@@ -1,20 +1,20 @@
 import defaultClient from '../http/default';
-import { AlbumsResponse, CreateAlbumResponse } from '../types/serverResponses';
+import { IAlbumsResponse, IAlbumByIdResponse, ICreateAlbumResponse } from '../types/serverResponses';
 
 class AlbumService {
 
-    async getAlbums(): Promise<AlbumsResponse> {
+    async getAlbums(): Promise<IAlbumsResponse> {
         const { data } = await defaultClient.get('/album/all');
         return data;
     }
 
-    async getAlbum(id: string): Promise<AlbumsResponse> {
+    async getAlbum(id: string): Promise<IAlbumByIdResponse | { data: null}> {
         const { data } = await defaultClient.get(`/album/get-album/${id}`);
 
         return data;
     }
 
-    async createAlbum(name: string, location: string, date: Date): Promise<CreateAlbumResponse> {
+    async createAlbum(name: string, location: string, date: Date): Promise<ICreateAlbumResponse> {
         const datapicker = date.getDay() + '.' + (date.getMonth() + 1) + '.' + date.getFullYear();
         console.log(datapicker);
         const { data } = await defaultClient.post('/album/create-album', {
@@ -22,7 +22,6 @@ class AlbumService {
             location,
             datapicker,
         }).then((response) => {
-            console.log(response);
             return response;
         });
         return data;
