@@ -27,7 +27,9 @@ class AuthService {
     }
 
     checkToken() {
-        return defaultClient.get('/auth/me');
+        return defaultClient.get('/auth/me').catch((error) => {
+            return error.response;
+        });
     }
 }
 

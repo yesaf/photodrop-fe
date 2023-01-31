@@ -93,6 +93,7 @@ const LoginContainer = styled.div`
   input {
     width: 20rem;
     font-size: 1.25rem;
+    line-height: 1.75rem;
     padding: 0.5rem 1rem;
     border-width: 1px;
     border-style: solid;

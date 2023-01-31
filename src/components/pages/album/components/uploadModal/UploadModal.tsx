@@ -4,6 +4,7 @@ import closeIcon from '../../../../../assets/images/close-square.svg';
 import UploadDashboard from '../uploadDashboard/UploadDashboard';
 import { useMemo, useState } from 'react';
 import PhoneField from '../phoneField/PhoneField';
+import 'react-phone-input-2/lib/style.css';
 
 interface IUploadModalProps {
     isOpen: boolean;

@@ -8,8 +8,9 @@ class AlbumService {
         return data;
     }
 
-    async getAlbum(id: string) {
+    async getAlbum(id: string): Promise<AlbumsResponse> {
         const { data } = await defaultClient.get(`/album/get-album/${id}`);
+
         return data;
     }
 
