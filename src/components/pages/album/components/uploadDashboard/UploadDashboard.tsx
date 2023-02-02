@@ -1,7 +1,7 @@
 import Uppy from '@uppy/core';
 import { Dashboard } from '@uppy/react';
 import XHRUpload from '@uppy/xhr-upload';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { baseUrl } from '../../../../../api/http/default';
 import '@uppy/core/dist/style.css'
 import '@uppy/dashboard/dist/style.css'
@@ -28,10 +28,14 @@ function UploadDashboard({ showDashboard, phonesList }: IUploadDashboardProps) {
             .on('file-added', () => {
                 uppy.setMeta({
                     album: albumId,
-                    phones: phonesList
+                    clients: phonesList.join(','),
                 })
             })
     });
+
+    useEffect(() => {
+        console.log('phonesList', phonesList);
+    }, [phonesList]);
 
     return (
         <>

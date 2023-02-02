@@ -1,12 +1,12 @@
 import axios from 'axios';
 import authService from '../services/auth';
 
-export const baseUrl = 'https://photographer.onrender.com';
+export const baseUrl = 'https://photographer.fly.dev';
 
 
 const defaultClient = axios.create({
     baseURL: baseUrl,
-    withCredentials: true,
+    // withCredentials: true,
 });
 
 defaultClient.interceptors.request.use((config) => {

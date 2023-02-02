@@ -16,7 +16,6 @@ class AlbumService {
 
     async createAlbum(name: string, location: string, date: Date): Promise<ICreateAlbumResponse> {
         const datapicker = date.getDay() + '.' + (date.getMonth() + 1) + '.' + date.getFullYear();
-        console.log(datapicker);
         const { data } = await defaultClient.post('/album/create-album', {
             name,
             location,
