@@ -2,7 +2,7 @@ import { ModalContainer, AddPhoneInput, PhonesContainer } from './UploadModal.st
 import PhoneInput from '../../../../shared/phoneInput/PhoneInput';
 import closeIcon from '../../../../../assets/images/close-square.svg';
 import UploadDashboard from '../uploadDashboard/UploadDashboard';
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import PhoneField from '../phoneField/PhoneField';
 import 'react-phone-input-2/lib/style.css';
 
@@ -16,8 +16,6 @@ const phoneRegex = /(0|91)?[6-9][0-9]{9}/;
 function UploadModal({ isOpen, onClose }: IUploadModalProps) {
     const [phonesList, setPhonesList] = useState<string[]>([]);
     const [phone, setPhone] = useState('');
-
-
 
     const isPhoneValid = useMemo(() => {
         return phoneRegex.test(phone);

@@ -2,7 +2,7 @@ import React, { memo, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import authService from '../../../api/services/auth';
-import { isLoggedIn } from '../../../utils/checkLoggedIn';
+import { tokenExists } from '../../../utils/checkLoggedIn';
 
 
 function Login() {
@@ -12,7 +12,7 @@ function Login() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (isLoggedIn()) {
+        if (tokenExists()) {
             authService.checkToken().then((valid) => {
                 if (valid) {
                     navigate('/albums');

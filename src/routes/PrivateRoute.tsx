@@ -1,17 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { Navigate } from 'react-router-dom';
-import { isLoggedIn } from '../utils/checkLoggedIn';
+import { Navigate, Outlet } from 'react-router-dom';
+import { tokenExists } from '../utils/checkLoggedIn';
 import authService from '../api/services/auth';
 
-interface IPrivateRouteProps {
-    children: React.ReactNode;
-}
 
-function PrivateRoute({ children }: IPrivateRouteProps) {
+function PrivateRoute() {
     const [loggedIn, setLoggedIn] = useState<boolean | undefined>(undefined);
 
     useEffect(() => {
-        if (!isLoggedIn()) {
+        if (!tokenExists()) {
             setLoggedIn(false);
         } else {
             authService.checkToken().then(() => {
@@ -25,16 +22,12 @@ function PrivateRoute({ children }: IPrivateRouteProps) {
     return (
         <>
             {
-                 typeof loggedIn == 'undefined' || loggedIn ?
-                    children :
+                typeof loggedIn == 'undefined' || loggedIn ?
+                    <Outlet/> :
                     <Navigate to="/login"/>
             }
         </>
     );
 }
-
-PrivateRoute.defaultProps = {
-    exact: false,
-};
 
 export default PrivateRoute;

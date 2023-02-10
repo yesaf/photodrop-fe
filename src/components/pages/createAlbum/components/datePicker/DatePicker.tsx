@@ -15,7 +15,7 @@ function DatePicker({ value, onChange }: IDatePickerProps) {
 
     return (
         <DatePickerContainer>
-            <input type="text" value={value.toLocaleDateString()}/>
+            <input type="text" value={value.toLocaleDateString()} readOnly/>
             <DayPicker selected={value} onDayClick={handleDayClick}/>
         </DatePickerContainer>
     );

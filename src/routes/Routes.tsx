@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes as DomRoutes, Route, Navigate } from 'react-router-dom';
 import Layout from '../components/shared/layout/Layout';
 import PrivateRoute from './PrivateRoute';
 import Login from '../components/pages/login/Login';
@@ -9,31 +9,33 @@ import BackButton from '../components/shared/backButton/BackButton';
 import CreateAlbum from '../components/pages/createAlbum/CreateAlbum';
 import CloseButton from '../components/shared/closeButton/CloseButton';
 
-function AllRoutes() {
+function Routes() {
 
     const privateRoutes = [
-        { element: <Navigate to="/albums"/>, route: '/', exact: true},
-        { element: <Albums/>, route: '/albums', exact: true },
-        { element: <Album/>, route: '/albums/:id', leftButton: <BackButton/>  },
-        { element: <CreateAlbum/>, route: '/create', leftButton: <CloseButton/>  },
+        { element: <Navigate to="/albums"/>, path: '/' },
+        { element: <Albums/>, path: '/albums' },
+        { element: <Album/>, path: '/albums/:id', leftButton: <BackButton/> },
+        { element: <CreateAlbum/>, path: '/create', leftButton: <CloseButton/> },
     ];
 
     return (
-        <Routes>
+        <DomRoutes>
             <Route path="/login" element={<Layout><Login/></Layout>}/>
             {
                 privateRoutes.map((route, index) =>
-                    <Route key={index} path={route.route} element={
-                        <PrivateRoute>
-                            <Layout leftButton={route.leftButton}>{route.element}</Layout>
-                        </PrivateRoute>
-                    }/>,
+                    <Route key={index} path={route.path} element={
+                        <PrivateRoute/>
+
+                    }>
+                        <Route path={route.path}
+                               element={<Layout leftButton={route.leftButton}>{route.element}</Layout>}/>
+                    </Route>,
                 )
             }
             <Route path="/*" element={<p>404</p>}/>
-        </Routes>
+        </DomRoutes>
 
     );
 }
 
-export default AllRoutes;
+export default Routes;

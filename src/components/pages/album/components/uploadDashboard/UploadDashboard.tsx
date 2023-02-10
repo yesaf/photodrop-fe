@@ -1,7 +1,7 @@
 import Uppy from '@uppy/core';
 import { Dashboard } from '@uppy/react';
 import XHRUpload from '@uppy/xhr-upload';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { baseUrl } from '../../../../../api/http/default';
 import '@uppy/core/dist/style.css'
 import '@uppy/dashboard/dist/style.css'
@@ -32,10 +32,6 @@ function UploadDashboard({ showDashboard, phonesList }: IUploadDashboardProps) {
                 })
             })
     });
-
-    useEffect(() => {
-        console.log('phonesList', phonesList);
-    }, [phonesList]);
 
     return (
         <>
