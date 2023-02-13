@@ -7,6 +7,8 @@ class AuthService {
         const { data } = await axios.post(baseUrl + '/auth/login', {
             login,
             password,
+        }, {
+            withCredentials: true,
         });
 
         if (data.accessToken) {
@@ -18,7 +20,9 @@ class AuthService {
     }
 
     async refreshToken(): Promise<boolean> {
-        const { data } = await axios.post(baseUrl + '/auth/refresh')
+        const { data } = await axios.post(baseUrl + '/auth/refresh', {}, {
+            withCredentials: true,
+        })
             .catch((error) => {
                 return error.response;
             });
