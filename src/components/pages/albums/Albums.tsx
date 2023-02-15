@@ -4,18 +4,25 @@ import { useEffect, useState } from 'react';
 import { IAlbum } from '../../../api/types/serverResponses';
 import albumService from '../../../api/services/album';
 import Loader from '../../shared/loader/Loader';
+import { Link } from 'react-router-dom';
 
 function Albums() {
     const [albums, setAlbums] = useState<IAlbum[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        albumService.getAlbums().then((res) => {
-            const albumList = res.data;
-            setAlbums(albumList);
-            setLoading(false);
-        });
-    }, [])
+        albumService.getAlbums()
+            .then((res) => {
+                const albumList = res.data;
+                setAlbums(albumList);
+                setLoading(false);
+            })
+            .catch((err) => {
+                if (err.response.status === 404) {
+                    setLoading(false);
+                }
+            });
+    }, []);
 
     return (
         <>
@@ -23,9 +30,9 @@ function Albums() {
                 loading ?
                     <Loader/> :
                     <AlbumList>
-                        <a href="/create" className="add-album">
+                        <Link to="/create" className="add-album">
                             Add Album
-                        </a>
+                        </Link>
                         {albums.map((album, index) => (
                             <AlbumInfo key={index} album={album}/>
                         ))}
@@ -69,13 +76,13 @@ const AlbumList = styled.ul`
       font-size: 1.5rem;
       margin-right: 0.25rem;
     }
-    
+
     &:hover {
-        background-color: #2a5e9c;
+      background-color: #2a5e9c;
     }
-    
+
     &:active {
-        background-color: #1f4a7a;
+      background-color: #1f4a7a;
     }
   }
 `;
