@@ -1,7 +1,7 @@
 import Uppy from '@uppy/core';
 import { Dashboard } from '@uppy/react';
 import XHRUpload from '@uppy/xhr-upload';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { baseUrl } from '../../../../../api/http/default';
 import '@uppy/core/dist/style.css'
 import '@uppy/dashboard/dist/style.css'
@@ -14,6 +14,7 @@ interface IUploadDashboardProps {
 
 function UploadDashboard({ showDashboard, phonesList }: IUploadDashboardProps) {
     const albumId = useParams().id;
+    console.log(phonesList);
     const [uppy] = useState(() => {
         return new Uppy({ id: 'uppy', debug: true, autoProceed: true, allowMultipleUploads: true })
             .use(XHRUpload, {
@@ -26,9 +27,10 @@ function UploadDashboard({ showDashboard, phonesList }: IUploadDashboardProps) {
                 fieldName: 'files',
             })
             .on('file-added', () => {
+                const clients = phonesList.join(',')
                 uppy.setMeta({
                     album: albumId,
-                    clients: phonesList.join(','),
+                    clients,
                 })
             })
     });
@@ -59,4 +61,4 @@ function UploadDashboard({ showDashboard, phonesList }: IUploadDashboardProps) {
     );
 }
 
-export default UploadDashboard;
+export default memo(UploadDashboard);

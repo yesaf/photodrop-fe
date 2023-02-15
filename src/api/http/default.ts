@@ -5,7 +5,6 @@ export const baseUrl = 'https://pd-photographer.onrender.com';
 
 const defaultClient = axios.create({
     baseURL: baseUrl,
-    // withCredentials: true,
 });
 
 defaultClient.interceptors.request.use((config) => {
