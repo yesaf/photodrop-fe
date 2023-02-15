@@ -6,20 +6,19 @@ import { IAlbumWithPhotos } from '../../../api/types/serverResponses';
 import Loader from '../../shared/loader/Loader';
 import albumService from '../../../api/services/album';
 
-
 function Album() {
     const [showUploadModal, setShowUploadModal] = useState(false);
     const [album, setAlbum] = useState<IAlbumWithPhotos | undefined | null>();
     const albumId = useParams().id;
 
     useEffect(() => {
-        if (albumId) {
+        if (albumId && !showUploadModal) {
             albumService.getAlbum(albumId)
                 .then((res) => {
                     setAlbum(res.data);
                 });
         }
-    }, [albumId]);
+    }, [albumId, showUploadModal]);
 
     const strDateToLocale = (date: string) => {
         const dateObj = new Date(date);

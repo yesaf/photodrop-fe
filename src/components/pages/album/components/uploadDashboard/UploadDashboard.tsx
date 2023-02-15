@@ -1,7 +1,7 @@
 import Uppy from '@uppy/core';
 import { Dashboard } from '@uppy/react';
 import XHRUpload from '@uppy/xhr-upload';
-import { memo, useMemo, useState } from 'react';
+import { memo, useMemo } from 'react';
 import { baseUrl } from '../../../../../api/http/default';
 import '@uppy/core/dist/style.css'
 import '@uppy/dashboard/dist/style.css'
@@ -15,9 +15,7 @@ interface IUploadDashboardProps {
 function UploadDashboard({ showDashboard, phonesList }: IUploadDashboardProps) {
     const albumId = useParams().id;
 
-    const phonesListStr = useMemo(() => phonesList.join(','), [phonesList]);
-
-    const [uppy] = useState(() => {
+    const uppy = useMemo(() => {
         return new Uppy({ id: 'uppy', debug: true, autoProceed: true, allowMultipleUploads: true })
             .use(XHRUpload, {
                 endpoint: baseUrl + '/album/upload-photos',
@@ -27,14 +25,16 @@ function UploadDashboard({ showDashboard, phonesList }: IUploadDashboardProps) {
                     Authorization: 'Bearer ' + localStorage.getItem('token'),
                 },
                 fieldName: 'files',
+                allowedMetaFields: ['clients', 'album'],
             })
-            .on('file-added', () => {
+            .on('upload', () => {
+                const phonesListStr = phonesList.join(',')
                 uppy.setMeta({
-                    album: albumId,
                     clients: phonesListStr,
+                    album: albumId,
                 })
             })
-    });
+    }, [albumId, phonesList]);
 
     return (
         <>
