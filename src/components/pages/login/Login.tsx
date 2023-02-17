@@ -3,11 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import authService from '../../../api/services/auth';
 import { tokenExists } from '../../../utils/checkLoggedIn';
+import Loader from '../../shared/loader/Loader';
 
 
 function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
     const [clicked, setClicked] = useState(false);
     const navigate = useNavigate();
 
@@ -29,6 +31,7 @@ function Login() {
     const handleLogin = () => {
         setClicked(true);
         if (username && password && checkUsername()) {
+            setIsLoading(true);
             authService.login(username, password)
                 .then(() => {
                     navigate('/albums');
@@ -51,6 +54,10 @@ function Login() {
         if (e.key === 'Enter') {
             handleLogin();
         }
+    }
+
+    if (isLoading) {
+        return <Loader/>;
     }
 
     return (

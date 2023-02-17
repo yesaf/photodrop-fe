@@ -39,7 +39,6 @@ function Album() {
                 <span><b>Name:</b> {album.name}</span>
                 <span><b>Location:</b> {album.location}</span>
                 <span><b>Date:</b> {strDateToLocale(album.createdAt)}</span>
-                <span><b>Total photos:</b> {album.photos.length}</span>
             </div>
 
             <button className="add-photos-button"
